@@ -1,0 +1,48 @@
+Business Intelligence assignment
+
+
+
+1.Describe Business Intelligence system development phases
+2. Explain characteristics of Decision Support System.
+3. List types of DSS and explain any one in detail.
+4. Define Decision Support System and explain its structure.
+5. What are the advantages & disadvantages of Decision Support System.
+6. What is Business Intelligence? Explain architecture of it.
+7. Describe Business Intelligence System development phases.
+8. What is the role of mathematical model in BI
+9. Define Business Intelligence cycle and explain various stages with suitable diagram.
+10. Explain components of DSS with diagram
+11. Define Business Intelligence and explain BI components in detail.
+12. What are types of decisions?
+13. What are main limitations of DSS?
+14. Define following terms with examples:
+a. Data b. Information c. Knowledge
+
+case study
+ Decision support system in business intelligence:
+https://www.riverlogic.com/blog/five-decision-support-s
+ystem-examples 
+
+
+
+1. Name and explain any three standard Business Intelligence tools available
+2. What is BI dashboard? What is the significance of BI Dashboard? Give one example.
+3. Design appropriate schema for University data warehouse
+4. Explain data warehouse terms: ROLAP, MOLAP & HOLAP
+5. Differentiate between OLTP & OLAP.
+6. Explain drill down & slice operation with example.
+7. Explain the distributed data warehouse architecture with suitable diagram.
+8. Design Star schema for Placement system in an Educational organization. Decide your own fact and dimension tables.
+9. Differentiate between Star schema and Snowflake schema with suitable example
+10.Explain main 4 characteristics of data warehouse
+11.Explain Drill Down and Pivot operations of OLAP with example
+12.Explain data warehouse architecture and its components with suitable diagram
+13.With suitable schema, design a data warehouse data model for clinical data (E.g. Drugs, Patients, Physicians, etc.)
+14.Define following terms in data warehouse modelling with example
+a. Fact Table b. Dimension Table c. Measure d. Dimensions
+15. Write note on: a. Star schema b. Snowflake schema c. Fact Constellation
+
+
+case study
+A case study on Retail Industry :
+https://www.diva-portal.org/smash/get/diva2:831050/FULLTEXT01.pdf 

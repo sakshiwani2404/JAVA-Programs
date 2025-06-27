@@ -1,0 +1,10 @@
+//Write java program to find special 2 digit number    ex-59
+//to find greatest of 3 no by conditional operator
+//find even and odd without using modulus operator
+//to find user entered char is alphabet digit or special char
+to find perfect number
+to find smallest and biggest digit from a number
+to find user entered date is valid or not
+find count of even and odd digit from the number
+to find factorial of each digits of a number 
+to find avg of digits of a number and check avg is even or odd
