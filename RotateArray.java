@@ -5,25 +5,37 @@ class RotateArray
 	public static void main(String[] args) {
 		int[] arr={1,2,3,4,5,6,7,8,9};
 		System.out.println("Before : "+Arrays.toString(arr));
-		System.out.println("Enter the no of rotations : ");
-		int rotation=new Scanner(System.in).nextInt();
-		System.out.println("Enter the Choice of Rotation : ");
-		System.out.println(" 1. Clock Wise Rotation ");
-		System.out.println(" 2. Anti Clock Wise Rotation ");
-		int op= new Scanner(System.in).nextInt();
-		switch(op)
+		System.out.println();
+		outerLoop:
+		for(; ;)
 		{
-		case 1:
-			clockwiseRotation(arr,rotation);
-			break;
-		case 2: 
-			antiClockwiseRotation(arr,rotation);
-			break;
-		default:
-			System.out.println("Invalid Option ");
+			
+			System.out.println(" 1. Clock Wise Rotation ");
+			System.out.println(" 2. Anti Clock Wise Rotation ");
+			System.out.print("Enter the Choice of Rotation :  ");
+			int op= new Scanner(System.in).nextInt();
+			System.out.println();
+			System.out.print("Enter the no of rotations :  ");
+			int rotation=new Scanner(System.in).nextInt();
+			System.out.println();
+			
+			
+			switch(op)
+			{
+			case 1:
+				clockwiseRotation(arr,rotation);
+				break;
+			case 2: 
+				antiClockwiseRotation(arr,rotation);
+				break;
+			default:
+				System.out.println("Invalid Option ");
+				break outerLoop;
+			}
+	
+			System.out.println("After : "+Arrays.toString(arr));
+			System.out.println();
 		}
-
-		System.out.println("After : "+Arrays.toString(arr));
 	}
 	
 	public static void clockwiseRotation(int[] arr, int rotation)
