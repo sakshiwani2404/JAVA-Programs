@@ -102,6 +102,7 @@ class MyString
 
 	public int indexOf(int ch, int start)
 	{
+		if(start<0 ) start=0;
 		for(int i=start;i<arr.length;i++)
 			if(arr[i]==ch) return i;
 		return -1;
@@ -109,13 +110,8 @@ class MyString
 
 	public int lastIndexOf(int ch)
 	{
-		return lastIndexOf(ch,0);
-	}
-
-	public int lastIndexOf(int ch,int start)
-	{
 		int lastindex=-1;
-		for(int i=start;i<arr.length;i++)
+		for(int i=0;i<arr.length;i++)
 			if(arr[i]==ch && lastindex< i) lastindex= i;
 		return lastindex;
 	}
@@ -127,10 +123,10 @@ class MyString
 
 	public String substring(int begin,int end)
 	{
-		String str="";
-		for(int i=begin;i<=end;i++)
+		char[] ch= new char[end-begin];
+		for(int i=begin;i<end;i++)
 			str+=arr[i];
-		return str;
+		return new MyString(ch).toString();
 	}
 
 	public String replace(char old, char newc)
@@ -138,12 +134,15 @@ class MyString
 		char[] newArr= new char[arr.length];
 		for(int i=0;i<arr.length;i++)
 			newArr[i]=(arr[i]!=old) ?  arr[i] : newc ;
-		return new String(newArr);
+		return new MyString(newArr).toString();
 	}
 
 	public char[] toCharArray()
 	{
-		return arr;
+		char[] ch= new char[arr.length];
+		for(int i=0;i<arr.length;i++)
+			ch[i]=arr[i];
+		return ch;
 	}
 
 	public String concat(MyString str)
@@ -220,6 +219,6 @@ class MyStringDriver
 		System.out.println(str.endsWith("abcd"));
 		MyString s= new MyString(arr);
 		System.out.println(s.endsWith("abcd"));
-		//System.out.println(s.equalsIgnoreCase("Abcd"));
+		System.out.println(s.equalsIgnoreCase("Abcd"));
 	}
 }
