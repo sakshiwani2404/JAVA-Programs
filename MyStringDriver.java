@@ -87,8 +87,10 @@ class MyString
 		return end-start;
 	}
 
-	public boolean equals(MyString str)
+	@Override
+	public boolean equals(Object obj)
 	{
+		MyString str= (MyString) obj;
 		if(arr.length != str.length()) return false;
 		for(int i=0;i<arr.length;i++)
 			if(arr[i]!=str.charAt(i)) return false;
@@ -116,25 +118,25 @@ class MyString
 		return lastindex;
 	}
 
-	public String substring(int begin)
+	public MyString substring(int begin)
 	{
 		return substring(begin,arr.length);
 	}
 
-	public String substring(int begin,int end)
+	public MyString substring(int begin,int end)
 	{
 		char[] ch= new char[end-begin];
 		for(int i=begin;i<end;i++)
-			str+=arr[i];
-		return new MyString(ch).toString();
+			ch[i]=arr[i];
+		return new MyString(ch);
 	}
 
-	public String replace(char old, char newc)
+	public MyString replace(char old, char newc)
 	{
 		char[] newArr= new char[arr.length];
 		for(int i=0;i<arr.length;i++)
 			newArr[i]=(arr[i]!=old) ?  arr[i] : newc ;
-		return new MyString(newArr).toString();
+		return new MyString(newArr);
 	}
 
 	public char[] toCharArray()
@@ -145,12 +147,12 @@ class MyString
 		return ch;
 	}
 
-	public String concat(MyString str)
+	public MyString concat(MyString str)
 	{
 		char[] newArr= new char[arr.length+str.length()];
 		for(int i=0,j=0;i<newArr.length;i++)
 			newArr[i]=(i<arr.length) ? arr[i] : str.charAt(j);
-		return new MyString(newArr).toString();
+		return new MyString(newArr);
 	}
 
 	public MyString toUpperCase(String str)
@@ -172,7 +174,7 @@ class MyString
 	public boolean contentEquals(StringBuffer sb)
 	{
 		MyString s1= new MyString(sb);
-		return equals(s1);
+		return this.equals(s1);
 	}
 
 	public boolean equalsIgnoreCase(String str)
@@ -189,20 +191,20 @@ class MyString
 		return true;
 	}
 
-	public boolean startsWith(String prefix)
+	public boolean startsWith(MyString prefix)
 	{
 		return startsWith(prefix, 0);
 	}
 
-	public boolean startsWith(String prefix,int offset)
+	public boolean startsWith(MyString prefix,int offset)
 	{
-		if(prefix.length()>arr.length) return false;
+		if(prefix.length()>arr.length || offset >= arr.length) return false;
 		for(int i=offset,j=0;i<prefix.length();i++) 
 			if(arr[i]!=prefix.charAt(j++)) return false;
 		return true;
 	}
 
-	public boolean endsWith(String suffix)
+	public boolean endsWith(MyString suffix)
 	{
 		if(suffix.length()>arr.length) return false;
 		for(int i=arr.length-suffix.length(),j=0;i<arr.length; i++)
@@ -216,9 +218,9 @@ class MyStringDriver
 	public static void main(String[] args) {
 		char [] arr= {'a','b','c','d'};
 		String str= new String(arr);
-		System.out.println(str.endsWith("abcd"));
+		//System.out.println(str.endsWith("abcd"));
 		MyString s= new MyString(arr);
-		System.out.println(s.endsWith("abcd"));
-		System.out.println(s.equalsIgnoreCase("Abcd"));
+		//System.out.println(s.endsWith("abcd"));
+		//System.out.println(s.equalsIgnoreCase("Abcd"));
 	}
 }
