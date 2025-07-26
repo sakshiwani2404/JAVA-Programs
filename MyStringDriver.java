@@ -90,6 +90,8 @@ class MyString
 	@Override
 	public boolean equals(Object obj)
 	{
+		if(!(obj instanceof MyString)) return false;
+
 		MyString str= (MyString) obj;
 		if(arr.length != str.length()) return false;
 		for(int i=0;i<arr.length;i++)
@@ -118,16 +120,19 @@ class MyString
 		return lastindex;
 	}
 
-	public MyString substring(int begin)
+	public MyString substring(int offset)
 	{
-		return substring(begin,arr.length);
+		if(offse==0) return new MyString(arr);
+		return substring(offset,arr.length);
 	}
 
 	public MyString substring(int begin,int end)
 	{
+		if(start>end || start<0 || end<0 || end>arr.length)
+			throw new MyStringIndexOutOfBoundsException("Range [ "+begin+" , "+end+") out of bounds for length "+arr.length);
 		char[] ch= new char[end-begin];
-		for(int i=begin;i<end;i++)
-			ch[i]=arr[i];
+		for(int i=0;i<ch.length;i++)
+			ch[i]=arr[begin++];
 		return new MyString(ch);
 	}
 
@@ -151,7 +156,7 @@ class MyString
 	{
 		char[] newArr= new char[arr.length+str.length()];
 		for(int i=0,j=0;i<newArr.length;i++)
-			newArr[i]=(i<arr.length) ? arr[i] : str.charAt(j);
+			newArr[i]=(i<arr.length) ? arr[i] : str.charAt(j++);
 		return new MyString(newArr);
 	}
 
@@ -179,16 +184,17 @@ class MyString
 
 	public boolean equalsIgnoreCase(String str)
 	{
-		if(str.length()!= arr.length) return false;
-		for(int i=0;i<arr.length;i++) 
-		{
-			if(arr[i]!= str.charAt(i))
-			{
-				if((arr[i]<str.charAt(i)) && (arr[i]+32 != str.charAt(i))) return false;
-				else if((arr[i]>str.charAt(i)) && (arr[i] != str.charAt(i)+32)) return false;
-			}
-		}
-		return true;
+		return this.toLowerCase().equals(str.toLowerCase());
+		// if(str.length()!= arr.length) return false;
+		// for(int i=0;i<arr.length;i++) 
+		// {
+		// 	if(arr[i]!= str.charAt(i))
+		// 	{
+		// 		if((arr[i]<str.charAt(i)) && (arr[i]+32 != str.charAt(i))) return false;
+		// 		else if((arr[i]>str.charAt(i)) && (arr[i] != str.charAt(i)+32)) return false;
+		// 	}
+		// }
+		// return true;
 	}
 
 	public boolean startsWith(MyString prefix)
@@ -198,18 +204,117 @@ class MyString
 
 	public boolean startsWith(MyString prefix,int offset)
 	{
-		if(prefix.length()>arr.length || offset >= arr.length) return false;
-		for(int i=offset,j=0;i<prefix.length();i++) 
-			if(arr[i]!=prefix.charAt(j++)) return false;
+		if(prefix.length()>arr.length || prefix.length()> (arr.length-offset) || offset <0 || offset >=arr.length) return false;
+		for(int i=0;i<prefix.length();i++) 
+			if(arr[offset++]!=prefix.charAt(i)) return false;
 		return true;
 	}
 
 	public boolean endsWith(MyString suffix)
 	{
 		if(suffix.length()>arr.length) return false;
-		for(int i=arr.length-suffix.length(),j=0;i<arr.length; i++)
-			if(arr[i]!=suffix.charAt(j++)) return false;
+		for(int i=arr.length-suffix.length(),j=0;i<arr.length; i++,j++)
+			if(arr[i]!=suffix.charAt(j)) return false;
 		return true;
+	}
+
+	public boolean contains(MyString str)
+	{
+		for(int i=0;i<arr.length- str.length();i++)
+		{
+			if(startsWith(str,i)) return true;
+		}
+		return false;
+	}
+
+	public MyString trim()
+	{
+		int left=0,right=0; 
+		boolean flag1=false, flag2=false;
+
+		for (int i=0,j=arr.length-1; i<arr.length ;i++,j-- ) 
+		{
+			if(arr[i]==' ' && !flag1) left++;
+			else flag1=true;
+
+			if(arr[j]==' '&& !flag2) right++;
+			else flag2=true;
+
+		}
+		return substring(left,(arr.length)-right);
+		// boolean flag=false;
+		// String newStr = "";
+		// outerLoop:
+		// for(int i=0,j=0;i<arr.length;i++)
+		// {
+		// 	if(arr[i]!=32)
+		// 	{
+		// 		newStr+=arr[i];
+		// 		flag= true;
+		// 	}
+		// 	else if(arr[i]==32 && flag)
+		// 		newStr+=arr[i];
+
+		// 	for(int k=i+1;k<arr.length;k++)
+		// 	{
+		// 		if(arr[k]!=32) break;
+		// 		else if(k==arr.length-1) break outerLoop;
+		// 	}	
+		// } 
+		// return new MyString(newStr);
+	}
+
+	public MyString[] split(MyString regex)
+	{
+		int count=0;
+		for (int i=0;i<arr.length ;i++ ) 
+			if(arr[i]==regex.charAt(0)) count++;
+		MyString[] newArr= new MyString[count+1];
+		int index=0;
+
+		MyString str= new MyString();
+		for(char ele : arr)
+		{
+			if(ele!=' ')
+				str=str.concat(new MyString(ele +""));
+			else{
+				newArr[index++]=str;
+				str=new MyString();
+			}
+		}	
+		newArr[indx]=str;
+		return newArr;
+	}
+
+	public MyString replaceFirst(MyString searchStr, MyString repStr)
+	{
+		MyString[] newArr= new MyString(arr).split(new MyString(" "));
+		MyString op= new MyString();
+		boolean flag=false;
+		int indx=0;
+		for(MyString ele : newArr)
+		{	
+			if(ele.equals(searchStr) && !flag)
+			{
+				newArr[indx]=repStr;
+				flag= true;
+			} 
+			op=op.concat(new MyString(newArr[indx++]+" "));
+		}
+		return op.trim();
+	}
+
+	public MyString replaceAll(MyString searchStr, MyString repStr)
+	{
+		MyString[] newArr= new MyString(arr).split(new MyString(" "));
+		MyString op= new MyString();
+		int indx=0;
+		for(MyString ele : newArr)
+		{	
+			if(ele.equals(searchStr)) newArr[indx]=repStr;
+				op=op.concat(new MyString(newArr[indx++]+" "));
+		}
+		return op.trim();
 	}
 
 }
@@ -217,10 +322,11 @@ class MyStringDriver
 {
 	public static void main(String[] args) {
 		char [] arr= {'a','b','c','d'};
-		String str= new String(arr);
-		//System.out.println(str.endsWith("abcd"));
-		MyString s= new MyString(arr);
-		//System.out.println(s.endsWith("abcd"));
-		//System.out.println(s.equalsIgnoreCase("Abcd"));
+		String str= new String("     Hello my name is Sakshi       ");
+		System.out.println(str.trim().length());
+
+		MyString s= new MyString("Hello my name is Sakshi       ");
+		System.out.println(s.trim().length());
+		System.out.println(s.startsWith(new MyString("hello"),s.length()-3));
 	}
 }
